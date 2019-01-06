@@ -38,7 +38,8 @@ app.use(express.static("public"));
 );
 */
 ////////////
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScraper";
+//var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScraper";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb:gezahegnw:wemet2001@ds249824.mlab.com:49824/web-scraper";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
@@ -67,7 +68,7 @@ app.get("/scrape", function(req, res) {
   axios.get("https://www.foxnews.com/").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
-let counter = 0;
+    let counter = 0;
     // Now, we grab every h2 within an article tag, and do the following:
     $(".main-secondary article.article").each(function(i, element) {
       // Save an empty result object
@@ -75,21 +76,21 @@ let counter = 0;
       var result = {};
       result.image = $(this).find('picture').children().first().attr('data-srcset').split(' ')[0];
       console.log(result.image);
-      // Add the text and href of every link, and save them as properties of the result object
-      result.link = $(this)
+      // Add the text and href of every url, and save them as properties of the result object
+      result.url = $(this)
         .find("h2.title")
         .find("a")
         .attr("href")
         .trim();
-        console.log(result.link);
-      result.title = $(this)
+        console.log(result.url);
+      result.headline = $(this)
         .find("h2.title")
         .text()
         .trim();
-        console.log(result.title);
+        console.log(result.headline);
      
       // Create a new Article using the `result` object built from scraping
-      if (result.title && result.link){
+      if (result.headline && result.url){
       db.Article.create(result)
         .then(function(dbArticle) {
           // View the added result in the console
@@ -104,8 +105,7 @@ let counter = 0;
       }
     });
 
-    // Send a message to the client
-   // res.send("/");
+   
     // If we were able to successfully scrape and save an Article, send a message to the client
     res.sendFile(path.join(__dirname, "public/index.html"));
   });

@@ -28,7 +28,7 @@ textarea {
 }
 
 h1, h2{
-  color:lightblue;
+  color:rgb(23, 44, 78);
   text-align: center;
 }
 
@@ -68,9 +68,13 @@ h1, h2{
   padding-right: 15px;
 }
 .jumbotron{
-  background-color: rgb(14, 99, 99);
-  color: brown;
+  background-image: url("http://video.foxnews.com/thumbnails/i/040410/0/0/040410_news_update_FNC_040410_09-50.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 div {
   display: grid;
+}
+.bg-dark {
+  background-color: rgb(16, 16, 80) !important;
 }
