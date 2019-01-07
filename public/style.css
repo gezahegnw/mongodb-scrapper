@@ -67,11 +67,13 @@ h1, h2{
   color: white;
   padding-right: 15px;
 }
+/*
 .jumbotron{
   background-image: url("http://video.foxnews.com/thumbnails/i/040410/0/0/040410_news_update_FNC_040410_09-50.jpg");
   background-repeat: no-repeat;
   background-size: contain;
 }
+*/
 div {
   display: grid;
 }
