@@ -20,14 +20,14 @@ $(document).ready(function(){
         
         var newATag = $("<a class='article-title'>");
         newATag.attr("target", "_blank")
-        newATag.attr("href", data[i].link)
-        newATag.text(data[i].title)
-        var newImage = $('<img>', { width : 450, height : 200, src : data[i].image});
+        newATag.attr("href", data[i].url)
+        newATag.text(data[i].headline)
         
         
         panelTitle.append(newATag)
         panelHeading.append(panelTitle)
         panelDiv.append(panelHeading)
+        var newImage = $('<img>', { width : 450, height : 200, src : data[i].image});
         panelDiv.append(newImage)
         panelDiv.append(data[i].summary)
       
@@ -35,9 +35,9 @@ $(document).ready(function(){
         if (data[i].isSaved){
 
         //create a delete button
-          panelTitle.append("<button data-id='" + data[i]._id + "' class='btn btn-warning delete-button'>" + "Delete Article" + "</button>");
+          panelTitle.append("<button data-id='" + data[i]._id + "' class='btn btn-danger delete-button'>" + "Delete Article" + "</button>");
           // create a note button
-          panelTitle.append("<button data-id='" + data[i]._id + "' class='btn btn-success note-button'>" + "Article Notes" + "</button>");
+          panelTitle.append("<button data-id='" + data[i]._id + "' class='btn btn-success note-button'>" + "" + "" + " Article Notes" + "</button>");
           // append to the div with id saved-articles (in saved page)
           $("#saved-articles").append(panelDiv)
         }
@@ -70,7 +70,7 @@ $(document).ready(function(){
     // Now make an ajax call for the Article
     $.ajax({
       method: "GET",
-      link: "/articles/" + thisId
+      url: "/articles/" + thisId
     })
       // With that done, add the note information to the modal
     .then(function(data) {
@@ -87,7 +87,7 @@ $(document).ready(function(){
       // If there's already a note in the article
       if (data.note) {
         // Place the title of the note in the title input
-        $("#titleinput").val(data.note.headline);
+        $("#titleinput").val(data.note.title);
         // Place the body of the note in the body textarea
         $("#bodyinput").val(data.note.body);
       }
@@ -110,10 +110,10 @@ $(document).ready(function(){
     // Run a POST request to change the note, using what's entered in the inputs
     $.ajax({
       method: "POST",
-      link: "/articles/" + thisId,
+      url: "/articles/" + thisId,
       data: {
         // Value taken from title input
-        headline: $("#titleinput").val(),
+        title: $("#titleinput").val(),
         // Value taken from note textarea
         body: $("#bodyinput").val()
       }
@@ -134,18 +134,18 @@ $(document).ready(function(){
   $(document).on("click", "#scrape-button", function(){
     $.ajax({
       method: "GET",
-      link: "/scrape" 
+      url: "/scrape" 
       
     }).then(function(data) {
       // Log the response
-      console.log("hello")
+      console.log("You Scrapped New Articles!")
       console.log(data);
 
       // load the articels onto the page
       displayArticles()
 
       $("#scrapeModalLabel").text("You successfully scraped new articles")
-      $("#scrapeModalBody").text("Woohoo!")
+      $("#scrapeModalBody").text("You Scrapped New Articles!!")
 
       $("#scrapeModal").modal("show");
 
@@ -159,13 +159,13 @@ $(document).ready(function(){
     var id = ($(this).attr("data-id"));
     $.ajax({
       method: "PUT",
-      link: "/articles/" + id
+      url: "/articles/" + id
       
     })
       // With that done
       .then(function(data) {
         // Log the response
-       // console.log(data);
+        console.log(data);
 
         // remove the saved article from the index page
         $("#" + id).remove();
@@ -180,7 +180,7 @@ $(document).ready(function(){
     var id = ($(this).attr("data-id"));
     $.ajax({
       method: "DELETE",
-      link: "/articles/" + id
+      url: "/articles/" + id
       
     }).then(function(data) {
       // Log the response
@@ -195,5 +195,3 @@ $(document).ready(function(){
 
 
 })
-
-
