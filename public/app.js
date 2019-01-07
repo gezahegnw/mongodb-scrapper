@@ -57,7 +57,7 @@ $(document).ready(function(){
 
 
   // on page load
-  //displayArticles();
+  displayArticles();
 
 
   // Whenever someone clicks the article notes tag

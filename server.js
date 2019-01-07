@@ -28,9 +28,9 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb:gezahegnw:wemet2001@ds249824.mlab.com:49824/web-scraper";
+//var MONGODB_URI = process.env.MONGODB_URI || "mongodb:gezahegnw:wemet2001@ds249824.mlab.com:49824/web-scraper";
 
-//var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news_Scraper";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news_Scraper";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
